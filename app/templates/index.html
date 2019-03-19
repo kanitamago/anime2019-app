@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+
+    <meta charset="utf-8">
+    <title>2019年放送のアニメ</title>
+    <link rel="stylesheet" href="../static/css/style.css">
+    <link rel="shortcut icon" type="image/x-icon" href="../static/favicon/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="../static/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../static/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../static/favicon/favicon-16x16.png">
+    <link rel="manifest" href="../static/favicon/site.webmanifest">
+    <link rel="mask-icon" href="../static/favicon/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#b91d47">
+    <meta name="theme-color" content="#ffffff">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <div class="title-fixed">
+          <div class="title-bg">
+            <h1 id="title">
+              <a id="title-link" href="{{ url_for('index') }}">2019年放送のアニメをスクレイピングしてみた</a>
+            </h1>
+          </div>
+        </div>
+        <div class="update-form">
+          <form action="{{ url_for('update_info') }}" method="post">
+            <button id="update-button" type="submit" name="button">更新</button>
+          </form>
+        </div>
+      </header>
+      <main class="main-contents">
+        {% for title, onAir, img, comment, comment_count, comment_list in dataset %}
+          <section>
+            <div class="anime-box clearfix">
+              <img class="anime-image" src="{{ img }}" alt="アニメ画像">
+              <div class="anime-text clearfix">
+                <p class="title-area">{{ title }}</p>
+                <p class="onAir-area">{{ onAir }}</p>
+                <div class="comment-area">
+                  {% for comment in comment_list %}
+                    <p>{{ comment }}</p>
+                  {% endfor %}
+                </div>
+                <p class="comment-count-area">{{ comment_count }} コメント</p>
+              </div>
+            </div>
+          </section>
+        {% endfor %}
+      </main>
+    </div>
+  </body>
+</html>
